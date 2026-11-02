@@ -1,5 +1,6 @@
-from odoo_final_classe.characters.hero import Hero
+"""Les personnages : ils ne lisent ni n'affichent rien."""
 
-__all__ = [
-    "Hero"
-]
+from odoo_final_classe.characters.hero import Hero
+from odoo_final_classe.characters.monster import Monster
+
+__all__ = ["Hero", "Monster"]

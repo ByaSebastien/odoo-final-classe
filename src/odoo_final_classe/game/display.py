@@ -1,15 +1,19 @@
+"""L'affichage : le seul module qui connaît rich."""
+
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
-from odoo_final_classe.characters import Hero
+from odoo_final_classe.characters import Hero, Monster
 
 console = Console()
+
 
 def banner() -> Panel:
     """L'écran titre."""
     title = Text("F I N A L   C L A S S E", style="bold cyan", justify="center")
     return Panel(title, subtitle="un mini-RPG pour apprendre la POO", border_style="cyan")
+
 
 def bar(current: int, maximum: int, width: int = 10) -> str:
     """Une jauge en couleur : verte, puis jaune sous la moitié, rouge sous le quart."""
@@ -17,6 +21,7 @@ def bar(current: int, maximum: int, width: int = 10) -> str:
     filled = round(width * ratio)
     color = "green" if ratio > 0.5 else "yellow" if ratio > 0.25 else "red"
     return f"[{color}]{'█' * filled}[/][dim]{'░' * (width - filled)}[/]"
+
 
 def hero_sheet(hero: Hero) -> str:
     """La fiche d'un héros : son nom, ses PV, ses PM et ses statistiques."""
@@ -26,3 +31,9 @@ def hero_sheet(hero: Hero) -> str:
         f"  PM {hero.mp:>4}/{hero.max_mp:<4} {bar(hero.mp, hero.max_mp)}\n"
         f"  FOR {hero.strength}  MAG {hero.magic}  DÉF {hero.defense}  RÉS {hero.resistance}"
     )
+
+
+def monster_line(monster: Monster) -> str:
+    """Une ligne pour un monstre : son nom et sa jauge de PV."""
+    gauge = bar(monster.hp, monster.max_hp)
+    return f"[bold red]{monster.name:<8}[/] PV {monster.hp:>4}/{monster.max_hp:<4} {gauge}"
